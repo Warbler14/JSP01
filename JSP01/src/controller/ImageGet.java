@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 
 /**
- * 
+ * call : http://localhost:8080/JSP01/ImageGet?fileName=overcome.jpg
  */
 @WebServlet("/ImageGet")
 public class ImageGet extends HttpServlet {
