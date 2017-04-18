@@ -69,7 +69,6 @@ public class ImageGet2 extends HttpServlet {
 				
 				
 				
-				
 				OutputStream out = response.getOutputStream();
 				ImageIO.write(bi, "jpg", out);
 				out.close();
