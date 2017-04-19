@@ -74,12 +74,12 @@ public class ImageGet2 extends HttpServlet {
 				out.close();
 				
 			} catch (Exception e) {
-				logger.error("NumberFormatException : " + e.getMessage() );
+				logger.error("Exception : " + e.getMessage() );
 			}
 			
 			
 		}else{
-			response.getWriter().println("<h1> bed prameter </h1>");
+			response.getWriter().println("<h1> bad prameter </h1>");
 			if((messagelist != null) && !messagelist.isEmpty() ){ 
 				for(int i = 0 , j = messagelist.size() ; i<j ; i++ ){
 					response.getWriter().println("<h1> "+ messagelist.get(i) +" </h1>");
