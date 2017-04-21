@@ -20,17 +20,17 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 
 /**
- * http://localhost:8080/JSP01/drawSpiral?width=500&height=500&x1=250&y1=250&degree=10&radius=50&count=50
+ * http://localhost:8080/JSP01/drawTriangle?width=500&height=500&x1=100&y1=400&x2=400&y2=400&x3=250&y3=120
  */
-@WebServlet("/drawSpiral")
-public class ImageGet5 extends HttpServlet {
+@WebServlet("/drawTriangle")
+public class ImageGet6 extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
-	static Logger logger = Logger.getLogger(ImageGet5.class);
+	static Logger logger = Logger.getLogger(ImageGet6.class);
 
-	public final static String [] PARAMETERS = {"width", "height", "x1","y1","degree", "radius", "count"};
+	public final static String [] PARAMETERS = {"width", "height", "x1","y1","x2", "y2","x3", "y3"};
 	
-    public ImageGet5() {
+    public ImageGet6() {
         super();
         
     }
@@ -130,33 +130,10 @@ public class ImageGet5 extends HttpServlet {
 		g.setPaint(baseColor);
 		//----------------------------------------------
 		
-		//"width(0)", "height(1)", "x1(2)", "y1(3)", "degree(4)", "radius(5)", "count(6)"
-		
-		/*
-		for(int i = 0 ; i < dataArray[6] ; i++ ){
-			
-			//get position
-			int positions [] = getPoint( dataArray[2], dataArray[3], dataArray[4] , dataArray[5] );
-			
-			//draw Line
-			g.drawLine(dataArray[2],dataArray[3], positions[0],  positions[1] );
-			
-			//reposition
-			dataArray[2] = positions[0];
-			dataArray[3] = positions[1];
-		}
-		*/
-		/*
-		Line2D line1 = new Line2D.Double(10.0, 10.0, 20.0, 20.0);
-		Line2D line2 = new Line2D.Double(20.0, 20.0, 40.0, 10.0);
-		Line2D line3 = new Line2D.Double(40.0, 10.0, 60.0, 20.0);
-		g.draw(line1);
-		g.draw(line2);
-		g.draw(line3);
-		*/
-		g.drawLine(10, 10, 20, 20);
-		g.drawLine(20 , 20, 40, 10);
-		g.drawLine(20 , 20, 40, 90);
+		//"width", "height", "x1","y1","x2", "y2","x3", "y3"
+		g.drawLine(dataArray[2], dataArray[3], dataArray[4], dataArray[5]);
+		g.drawLine(dataArray[4], dataArray[5], dataArray[6], dataArray[7]);
+		g.drawLine(dataArray[6], dataArray[7], dataArray[2], dataArray[3]);
 		
 		//----------------------------------------------
 		OutputStream out = response.getOutputStream();
@@ -166,33 +143,5 @@ public class ImageGet5 extends HttpServlet {
 		
 	}
 	
-
-	private static int [] getPoint( int x1, int y1, int degree, int radius ){
-		int positions [] = {0,0};
-		int x2 = (int)( Math.cos(Math.toRadians((double)degree)) * radius );
-		int y2 = (int)( Math.sin(Math.toRadians((double)degree)) * radius );
-		
-		//TODO FIX CALCULATION
-		if( 0 <= degree && degree <= 90 ){
-			positions[0] = x1 + x2;
-			positions[1] = y1 + y2;
-		}else if( 90 <= degree && degree <= 180 ){
-			
-		}else if( 180 <= degree && degree <= 270 ){
-			
-		}else if( 270 <= degree && degree <= 360 ){
-			
-		}else{
-			return positions;
-		}
-		positions[0] = x1 + (int)( Math.cos(Math.toRadians((double)degree)) * radius );
-		positions[1] = y1 + (int)( Math.sin(Math.toRadians((double)degree)) * radius );
-		
-		logger.debug( "degree : " + degree + ", radius : " + radius);
-		logger.debug( "x1 : " + x1 + ", y1 : " + y1);
-		logger.debug( "x2 : " + positions[0] + ", y2 : " + positions[1]);
-		
-		return positions;
-	}
 
 }
