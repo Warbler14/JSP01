@@ -18,17 +18,17 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 
 /**
- * http://localhost:8081/JSP01/drawQuadrangle?width=500&height=500&x1=100&y1=400&x2=400&y2=400&x3=400&y3=100&x4=100&y4=100
+ * http://localhost:8080/JSP01/drawTriangle?width=500&height=500&x1=100&y1=400&x2=400&y2=400&x3=250&y3=120
  */
-@WebServlet("/drawQuadrangle")
-public class ImageGet6 extends HttpServlet {
+@WebServlet("/drawTriangle")
+public class ImageGet7 extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
-	static Logger logger = Logger.getLogger(ImageGet6.class);
+	static Logger logger = Logger.getLogger(ImageGet7.class);
 
-	public final static String [] PARAMETERS = {"width", "height", "x1","y1","x2", "y2","x3", "y3","x4", "y4"};
+	public final static String [] PARAMETERS = {"width", "height", "x1","y1","x2", "y2","x3", "y3"};
 	
-    public ImageGet6() {
+    public ImageGet7() {
         super();
         
     }
@@ -128,11 +128,10 @@ public class ImageGet6 extends HttpServlet {
 		g.setPaint(baseColor);
 		//----------------------------------------------
 		
-		//"width", "height", "x1","y1","x2", "y2","x3", "y3","x4", "y4"
+		//"width", "height", "x1","y1","x2", "y2","x3", "y3"
 		g.drawLine(dataArray[2], dataArray[3], dataArray[4], dataArray[5]);
 		g.drawLine(dataArray[4], dataArray[5], dataArray[6], dataArray[7]);
-		g.drawLine(dataArray[6], dataArray[7], dataArray[8], dataArray[9]);
-		g.drawLine(dataArray[8], dataArray[9], dataArray[2], dataArray[3]);
+		g.drawLine(dataArray[6], dataArray[7], dataArray[2], dataArray[3]);
 		
 		//----------------------------------------------
 		OutputStream out = response.getOutputStream();
