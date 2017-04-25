@@ -21,14 +21,14 @@ import org.apache.log4j.Logger;
  * http://localhost:8081/JSP01/drawQuadrangle?width=500&height=500&x1=100&y1=400&x2=400&y2=400&x3=400&y3=100&x4=100&y4=100
  */
 @WebServlet("/drawQuadrangle")
-public class ImageGet6 extends HttpServlet {
+public class ImageGet006 extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
-	static Logger logger = Logger.getLogger(ImageGet6.class);
+	static Logger logger = Logger.getLogger(ImageGet006.class);
 
 	public final static String [] PARAMETERS = {"width", "height", "x1","y1","x2", "y2","x3", "y3","x4", "y4"};
 	
-    public ImageGet6() {
+    public ImageGet006() {
         super();
         
     }

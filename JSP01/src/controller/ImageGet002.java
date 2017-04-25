@@ -15,15 +15,15 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 
 /**
- * http://localhost:8080/JSP01/ImageGetSize?width=100&height=100
+ * http://localhost:8081/JSP01/ImageGetSize?width=100&height=100
  */
 @WebServlet("/ImageGetSize")
-public class ImageGet2 extends HttpServlet {
+public class ImageGet002 extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
-	static Logger logger = Logger.getLogger(ImageGet2.class);
+	static Logger logger = Logger.getLogger(ImageGet002.class);
 
-    public ImageGet2() {
+    public ImageGet002() {
         super();
         
     }

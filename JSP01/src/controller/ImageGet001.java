@@ -15,15 +15,15 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 
 /**
- * call : http://localhost:8080/JSP01/ImageGet?fileName=overcome.jpg
+ * call : http://localhost:8081/JSP01/ImageGet?fileName=overcome.jpg
  */
 @WebServlet("/ImageGet")
-public class ImageGet extends HttpServlet {
+public class ImageGet001 extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
-	static Logger logger = Logger.getLogger(ImageGet.class);
+	static Logger logger = Logger.getLogger(ImageGet001.class);
 
-    public ImageGet() {
+    public ImageGet001() {
         super();
         
     }

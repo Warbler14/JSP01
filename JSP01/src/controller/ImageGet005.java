@@ -4,12 +4,10 @@ package controller;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Paint;
-import java.awt.geom.Line2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import javax.imageio.ImageIO;
 import javax.servlet.annotation.WebServlet;
@@ -20,17 +18,17 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 
 /**
- * http://localhost:8080/JSP01/drawSpiral?width=500&height=500&x1=250&y1=250&degree=10&radius=50&count=50
+ * http://localhost:8081/JSP01/drawSpiral?width=500&height=500&x1=250&y1=250&degree=10&radius=50&count=50
  */
 @WebServlet("/drawSpiral")
-public class ImageGet5 extends HttpServlet {
+public class ImageGet005 extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
-	static Logger logger = Logger.getLogger(ImageGet5.class);
+	static Logger logger = Logger.getLogger(ImageGet005.class);
 
 	public final static String [] PARAMETERS = {"width", "height", "x1","y1","degree", "radius", "count"};
 	
-    public ImageGet5() {
+    public ImageGet005() {
         super();
         
     }

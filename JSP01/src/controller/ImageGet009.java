@@ -21,14 +21,14 @@ import org.apache.log4j.Logger;
  * http://localhost:8081/JSP01/drawMirrorLine?width=500&height=500&x1=250&y1=250&x2=80&y2=300&x3=200&y3=50
  */
 @WebServlet("/drawMirrorLine")
-public class ImageGet9 extends HttpServlet {
+public class ImageGet009 extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
-	static Logger logger = Logger.getLogger(ImageGet9.class);
+	static Logger logger = Logger.getLogger(ImageGet009.class);
 
 	public final static String [] PARAMETERS = {"width", "height", "x1","y1",   "x2","y2",   "x3","y3"};
 	
-    public ImageGet9() {
+    public ImageGet009() {
         super();
         
     }

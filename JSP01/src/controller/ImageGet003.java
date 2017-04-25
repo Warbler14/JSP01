@@ -18,15 +18,15 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 
 /**
- * http://localhost:8080/JSP01/paintImage?number=1
+ * http://localhost:8081/JSP01/ImageGetSize?width=100&height=100
  */
 @WebServlet("/paintImage")
-public class ImageGet3 extends HttpServlet {
+public class ImageGet003 extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
-	static Logger logger = Logger.getLogger(ImageGet3.class);
+	static Logger logger = Logger.getLogger(ImageGet003.class);
 
-    public ImageGet3() {
+    public ImageGet003() {
         super();
         
     }
