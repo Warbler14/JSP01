@@ -169,7 +169,7 @@ private static final long serialVersionUID = 1L;
 		
 		double xm = width/2;
 		double ym = height/2;
-		double x = Math.round(dataArr[0])/100.0 ;
+		double x = dataArr[0]; //Math.round(dataArr[0]*100)/100.0 ;
 		double yh = side/2;
 		
 		System.out.println("xm : " + xm + ", ym : " + ym + ", x : " + x + ", yh : " + yh);
