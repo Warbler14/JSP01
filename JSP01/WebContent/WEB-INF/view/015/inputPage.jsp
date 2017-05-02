@@ -26,7 +26,7 @@
 <script type="text/javascript">
 
 	$(document).ready(function(){
-		$(".box").on()
+		
 		
 		$(".box").on( "click", function() {
 			var pos = $(this).children(':first').val();
