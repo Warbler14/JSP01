@@ -25,6 +25,14 @@
 		clear:both;
 	}
 	
+	#show_box{
+		float:left;
+		position:absolute;
+		margin-left:600px;
+		margin-top:30px;
+		width: 500px;
+		height:500px;
+	}
 </style>
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -51,7 +59,9 @@
 				$("#x_pos").val( xPos );
 				$("#y_pos").val( yPos );
 				
-				//getImage( "/JSP01/drawMousePosition", "frm" );
+				if( $("#live").is(":checked") ){
+					getImage();
+				}
 			}
 			
 			
@@ -60,34 +70,19 @@
 		});
 		
 		$("#btn1").click(function(){
-			getImage( "/JSP01/drawMousePosition", "frm" );
+			getImage();
 			
 		});
 		
 	});
 	 
-	function getImage( url, frm ){
+	function getImage(){
 		
-		$( "#" + frm ).submit();
-		/* 
-		alert();
-		 
-		$.ajax({
-			url : url
-			,data:$( "#" + frm ).serialize()
-			,method:'post'
-			,dataType : 'html'
-			,contentType:"application/x-www-form-urlencoded; charset=UTF-8"
-			,success:function(html){
-				$("#show_box").html( htmlEncode(html) );
-			}
-			,error:function(){
-				console.log("error")
-			}
-			, complete:function(){
-			}
-		});
-		 */
+		var x_pos = $("#x_pos").val();
+		var y_pos = $("#y_pos").val();
+		
+		var img = "http://localhost:8081/JSP01/drawAjaxImage?cmd=drawImage&x_pos="+x_pos+"&y_pos=" + y_pos;
+		$( "#img01" ).attr( "src" , img );
 	}
 	
 	
@@ -99,8 +94,9 @@
 		<span>&nbsp;</span>
 	</p>
 	
+	<input type="checkbox" name="live" id="live" value=""> live call
 	
-	<form id="frm" action="/JSP01/drawMousePosition" method="POST">
+	<form id="frm" action="/JSP01/drawAjaxImage" method="GET">
 		<input type="hidden" value="drawImage" name = "cmd"/>
 		<input type="hidden" value="0" name = "x_pos" id="x_pos"/>
 		<input type="hidden" value="0" name = "y_pos" id="y_pos"/>
@@ -116,7 +112,7 @@
 	
 	<div id="show_box">
 	
-	
+		<img id = "img01" src="http://localhost:8081/JSP01/drawAjaxImage?cmd=drawImage&x_pos=0&y_pos=0"/>
 	
 	</div>
 	
