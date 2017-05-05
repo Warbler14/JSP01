@@ -45,11 +45,18 @@
 	function getImage(){
 		
 		var message = $("#message").val();
+		var letterWidth = $("#letterWidth").val();
+		var letterHight = $("#letterHight").val();
 		
-		var img = "http://localhost:8081/JSP01/drawText?cmd=drawImage&message="+message;
+		var img = "http://localhost:8081/JSP01/drawText?cmd=drawImage&message="+message 
+				+ "&letterWidth=" + letterWidth + "&letterHight=" + letterHight;
 		$( "#img01" ).attr( "src" , img );
 	}
 	
+	function isNumberKey(evt){
+		var charCode = (evt.which) ? evt.which : evt.keyCode
+		return !(charCode > 31 && (charCode < 48 || charCode > 57));
+	}
 	
 </script>
 </head>
@@ -60,14 +67,22 @@
 	<form id="frm" action="/JSP01/drawAjaxImage" method="GET">
 		<input type="hidden" value="drawImage" name = "cmd"/>
 		
-		<input type="text" value="" name="message" id="message"/>
+		<span>letterWidth : </span>
+		<input type="text" name="letterWidth" id="letterWidth" value="10" maxlength="3" onkeypress="return isNumberKey(event);"/>
+		<br/>
+		<span>letterHight : </span>
+		<input type="text" name="letterHight" id="letterHight" value="10" maxlength="3" onkeypress="return isNumberKey(event);"/>
+		<br/>
+		
+		<textarea name="message" id="message" style="width:100%;border:1;overflow:visible;text-overflow:ellipsis;" rows=10>
+		</textarea>
 		
 		<input type="button" id="btn1" value="show" />
 	</form>
 	
 	<div id="show_box">
 	
-		<img id = "img01" src="http://localhost:8081/JSP01/drawText?cmd=drawImage&message='message'"/>
+		<img id = "img01" src="http://localhost:8081/JSP01/drawText?cmd=drawImage&message='message'&letterWidth=10&letterHight=10"/>
 	
 	</div>
 	

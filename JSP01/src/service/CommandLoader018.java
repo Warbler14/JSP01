@@ -130,7 +130,9 @@ public class CommandLoader018 implements CommandLoader{
 			, int imageType, Paint baseColor, HashMap<String, String> dataMap ) throws Exception{
 		
 		final int module [] = {500,200};
-		final int textPos [] = {10,100};
+		final int textPos [] = {10,10};
+		final int letterWidth = Integer.valueOf( dataMap.get( "letterWidth" ) );
+		final int letterHight = Integer.valueOf( dataMap.get( "letterHight" ) );
 		
 		//----------------------------------------------
 		response.setContentType("image/jpeg");
@@ -141,7 +143,10 @@ public class CommandLoader018 implements CommandLoader{
 		g.setPaint(baseColor);
 		g.setFont(new Font( "SansSerif", Font.BOLD, 12 ));
 		
-		g.drawString(dataMap.get( "message" ), textPos[0], textPos[1]);
+		ArrayList<String> strArr = getStrArr( dataMap.get( "message" ), letterWidth );
+		for( int i = 0, j = strArr.size() ; i<j ; i++ ){
+			g.drawString( strArr.get(i), textPos[0], textPos[1] + letterHight*i );
+		}
 		
 		//----------------------------------------------
 		OutputStream out = response.getOutputStream();
@@ -151,5 +156,28 @@ public class CommandLoader018 implements CommandLoader{
 		
 	}
 	
+	private static ArrayList<String> getStrArr( String str, int length ){
+		ArrayList<String> rtnData = new ArrayList<String>();
+		
+		char [] charArr = str.toCharArray();
+		
+		if( charArr != null && charArr.length > 0 ){
+			StringBuffer buff = new StringBuffer( length );
+			for( int i = 0, j = charArr.length ; i<j ; i++ ){
+				if( i>0 && (i % (length-1)) == 0 ){
+					logger.debug(buff.toString());
+					rtnData.add( buff.toString() );
+					buff = new StringBuffer( length );
+				}
+				buff.append( charArr[i] );
+			}
+			logger.debug(buff.toString());
+			rtnData.add( buff.toString() );
+			
+		}
+		
+		
+		return rtnData;
+	}
 	
 }
