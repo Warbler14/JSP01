@@ -88,14 +88,20 @@
 	
 	function getImage(){
 		
+		var boxWidth = parseInt( $("#boxWidth").val() );
+		var boxHeight = parseInt($("#boxHeight").val() );
+		var countX = parseInt($("#countX").val() );
+		var countY =parseInt( $("#countY").val() );
+		
 		
 		
 		var img = "http://localhost:8081/JSP01/drawColorMatrix?cmd=drawImage"
-				+ "&c_width="+ x_limit +"&c_height=" + y_limit
-				+ "&x_pos1="+ x_pos1+"&y_pos1=" +  y_pos1 
-				+ "&x_pos2="+ x_pos2 +"&y_pos2=" +  y_pos2;
+				+ "&boxWidth="+ boxWidth +"&boxHeight=" + boxHeight
+				+ "&countX="+ countX +"&countY=" + countY ;
 		
-		$( "#img01" ).html( "src" , img );
+		alert(img);
+		
+		$( "#img01" ).attr( "src" , img );
 	}
 	
 	
@@ -118,11 +124,12 @@
 		<div id="tableArea"></div>
 		
 		<input type="button" onclick="javascript:buildTable();" value="buildTable"/>
+		<input type="button" onclick="javascript:getImage();" value="getImage"/>
 	</form>
 	
 	<div id="show_box">
 	
-		<img id = "img01" src="http://localhost:8081/JSP01/drawColorMatrix?cmd=drawImage&c_width=800&c_height=600&x_pos1=100&y_pos1=300&x_pos2=500&y_pos2=300"/>
+		<img id = "img01" src="http://localhost:8081/JSP01/drawColorMatrix?cmd=drawImage&boxWidth=10&boxHeight=10&countX=10&countY=10"/>
 	
 	</div>
 	

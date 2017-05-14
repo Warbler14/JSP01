@@ -129,20 +129,36 @@ public class CommandLoader026 implements CommandLoader{
 	private static void paintProcessJPG( HttpServletRequest request, HttpServletResponse response
 			, int imageType, Paint [] baseColors, HashMap<String, Integer> dataMap ) throws Exception{
 		
-		final int dotSize = 50;
-		final int module [] = { Integer.valueOf( dataMap.get( "c_width" ) )
-							  , Integer.valueOf( dataMap.get( "c_height" ) )};
+		
+		int boxWidth = Integer.valueOf( dataMap.get( "boxWidth" ) );
+		int boxHeight = Integer.valueOf( dataMap.get( "boxHeight" ) );
+		int countX = Integer.valueOf( dataMap.get( "countX" ) );
+		int countY = Integer.valueOf( dataMap.get( "countY" ) );
+		
 		
 		//----------------------------------------------
 		response.setContentType("image/jpeg");
-		BufferedImage bi = new BufferedImage(module[0], module[1], BufferedImage.TYPE_INT_RGB);
+		BufferedImage bi = new BufferedImage( boxWidth * countX , boxHeight * countY, BufferedImage.TYPE_INT_RGB);
 		Graphics2D g = (Graphics2D) bi.getGraphics();
 		//----------------------------------------------
 		
-		g.setPaint(baseColors[0]);
-		g.fillRect( dataMap.get( "x_pos1" ), dataMap.get( "y_pos1" ) , dotSize, dotSize);
-		g.setPaint(baseColors[1]);
-		g.fillRect( dataMap.get( "x_pos2" ), dataMap.get( "y_pos2" ) , dotSize, dotSize);
+		
+		
+		
+		int pointer = 0;
+		for( int i = 0 ; i<countY ; i++ ){
+			for( int j = 0 ; j<countX ; j++, pointer++ ){
+				
+				g.setPaint(baseColors[ pointer%2 ]);
+				g.fillRect( j * boxWidth, i * boxHeight , boxWidth, boxHeight);
+				
+			}//end for
+			
+			pointer++;
+			
+		}//end for
+		
+		
 		
 		//----------------------------------------------
 		OutputStream out = response.getOutputStream();
