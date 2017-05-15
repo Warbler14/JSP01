@@ -1,10 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@include file="colorpicker.jsp"%>
+
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <style type="text/css">
+
+	#input_control {
+		background-color: gray;
+		width: 200px;
+		height: 100px;
+		margin-top: 20px;
+	}
 
 	#frm input[type=text] {
 		width: 50px;
@@ -29,6 +39,18 @@
 		margin-top:100px;
 		width: 500px;
 		height:500px;
+	}
+	
+	#widget01 {
+		position: absolute;
+		margin-left: 50px;
+		margin-top: 10px;
+		
+	}
+	
+	#widget01 span{
+		margin-left: 50px;
+		
 	}
 </style>
 
@@ -104,27 +126,48 @@
 		$( "#img01" ).attr( "src" , img );
 	}
 	
+	function getHexCode(){
+		var rgb = $("#widget01_color").css("background-color");
+		var hex_code = rgb2hex( rgb );
+		//alert( hex_code );
+		$("#widget01 #hex_code").text( hex_code );
+	}
 	
-	
-	
+	function rgb2hex(rgb) {
+	     if (  rgb.search("rgb") == -1 ) {
+	          return rgb;
+	     } else {
+	          rgb = rgb.match(/^rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*(\d+))?\)$/);
+	          function hex(x) {
+	               return ("0" + parseInt(x).toString(16)).slice(-2);
+	          }
+	          return "#" + hex(rgb[1]) + hex(rgb[2]) + hex(rgb[3]);
+	     }
+	}
+
+
 	
 </script>
 </head>
 <body>
+
 	
 	
 	<form id="frm" action="/JSP01/drawColorMatrix" method="GET">
 		<input type="hidden" value="drawImage" name = "cmd"/>
 		
-		<span>boxWidth : </span> <input type="text" id="boxWidth"  name = "boxWidth"  value="10" maxlength="3"/><br/>
-		<span>boxHeight : </span><input type="text" id="boxHeight" name = "boxHeight" value="10" maxlength="3"/><br/>
-		<span>countX : </span>   <input type="text" id="countX"    name = "countX"    value="10" maxlength="3"/><br/>
-		<span>countY : </span>   <input type="text" id="countY"    name = "countY"    value="10" maxlength="3"/><br/>
-		
 		<div id="tableArea"></div>
 		
-		<input type="button" onclick="javascript:buildTable();" value="buildTable"/>
-		<input type="button" onclick="javascript:getImage();" value="getImage"/>
+		<div id="input_control">
+			<span>boxWidth : </span> <input type="text" id="boxWidth"  name = "boxWidth"  value="10" maxlength="3"/><br/>
+			<span>boxHeight : </span><input type="text" id="boxHeight" name = "boxHeight" value="10" maxlength="3"/><br/>
+			<span>countX : </span>   <input type="text" id="countX"    name = "countX"    value="10" maxlength="3"/><br/>
+			<span>countY : </span>   <input type="text" id="countY"    name = "countY"    value="10" maxlength="3"/><br/>
+			
+			
+			<input type="button" onclick="javascript:buildTable();" value="buildTable"/>
+			<input type="button" onclick="javascript:getImage();" value="getImage"/>
+		</div>
 	</form>
 	
 	<div id="show_box">
@@ -133,5 +176,23 @@
 	
 	</div>
 	
+	
+	
+
+
+
+
+	<div id="widget01">
+		<div id="colorSelector2"><div id="widget01_color" style="background-color: #00ff00"></div></div>
+			<div id="colorpickerHolder2">
+		</div>
+		<span>hex code : </span><span id="hex_code">#00ff00</span>
+		<input type="button" onclick="javascript:getHexCode();" value="getHexCode"/>
+	</div> 
+
+
+
+
+
 </body>
 </html>
