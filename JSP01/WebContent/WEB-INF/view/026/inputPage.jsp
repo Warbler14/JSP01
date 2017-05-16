@@ -20,17 +20,16 @@
 		width: 50px;
 	}
 
+	#matrix {
+		margin-left: 10px;
+		margin-top: 10px;
+	}
+
 	#matrix tr td{
 		border: 1px solid black;
+		text-align: center;
 	}
 	
-
-	#cube{
-		width: 50px;
-		height:50px;
-		background-color: white;
-	}
-
 	
 	#show_box{
 		float:left;
@@ -51,6 +50,11 @@
 	#widget01 span{
 		margin-left: 50px;
 		
+	}
+	
+	.selectedOne {
+		
+		background-color: black;
 	}
 </style>
 
@@ -77,10 +81,29 @@
 	var add1 = 10;
 	var add2 = 20;
 	
+	var selectedBoxId = "item_0_0";
+	
 	$(document).ready(function(){
 		
 		buildTable();
+		
+		$("#" + selectedBoxId ).addClass("selectedOne");
 	});
+	
+	
+	
+	
+	function setThisOne( obj ){
+		
+		$("#" + selectedBoxId ).removeClass("selectedOne");
+		
+		selectedBoxId = $(obj).attr("id");
+		
+		//alert(selectedBoxId);
+		
+		$("#" + selectedBoxId ).addClass("selectedOne");
+		
+	}
 	
 	function buildTable(){
 		var boxWidth = parseInt( $("#boxWidth").val() );
@@ -94,7 +117,7 @@
 		for( var i = 0 ; i < countY ; i++ ){
 			html += "<tr>";
 			for( var j = 0 ; j < countX ; j++ ){
-				html += "<td style='width:"+ boxWidth +";height:"+ boxHeight +";' >";
+				html += "<td style='width:"+ boxWidth +";height:"+ boxHeight +";' id='item_"+i+"_"+j+"' onclick='javascript:setThisOne(this);' >";
 				
 				html += "<span>" + i +":" + j + "</span>"
 				
@@ -131,6 +154,10 @@
 		var hex_code = rgb2hex( rgb );
 		//alert( hex_code );
 		$("#widget01 #hex_code").text( hex_code );
+		
+		$("#" + selectedBoxId ).css("background-color", rgb);
+		
+		
 	}
 	
 	function rgb2hex(rgb) {
@@ -159,8 +186,8 @@
 		<div id="tableArea"></div>
 		
 		<div id="input_control">
-			<span>boxWidth : </span> <input type="text" id="boxWidth"  name = "boxWidth"  value="10" maxlength="3"/><br/>
-			<span>boxHeight : </span><input type="text" id="boxHeight" name = "boxHeight" value="10" maxlength="3"/><br/>
+			<span>boxWidth : </span> <input type="text" id="boxWidth"  name = "boxWidth"  value="25" maxlength="3"/><br/>
+			<span>boxHeight : </span><input type="text" id="boxHeight" name = "boxHeight" value="25" maxlength="3"/><br/>
 			<span>countX : </span>   <input type="text" id="countX"    name = "countX"    value="10" maxlength="3"/><br/>
 			<span>countY : </span>   <input type="text" id="countY"    name = "countY"    value="10" maxlength="3"/><br/>
 			
