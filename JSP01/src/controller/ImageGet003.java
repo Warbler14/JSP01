@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 
 /**
- * http://localhost:8081/JSP01/ImageGetSize?width=100&height=100
+ * http://localhost:8081/JSP01/paintImage?number=5
  */
 @WebServlet("/paintImage")
 public class ImageGet003 extends HttpServlet {
