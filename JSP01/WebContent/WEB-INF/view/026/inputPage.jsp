@@ -9,6 +9,24 @@
 <head>
 <style type="text/css">
 
+	#body01 {
+		width: 1000px;
+		height:1000px;
+		background-color: #d6f0d6;
+	
+	}
+	
+	.area01 {
+	    width: 490px;
+	    height: 490px;
+	    background-color: #d6f0d6;
+	    border: 1px solid #48BAE4;
+	    padding: 1px;
+	    float: left;
+	    margin-top: 4px;
+	    margin-left: 4px;
+	}
+
 	#input_control {
 		background-color: gray;
 		width: 200px;
@@ -31,25 +49,21 @@
 	}
 	
 	
-	#show_box{
-		float:left;
-		position:absolute;
-		margin-left:50px;
-		margin-top:100px;
-		width: 500px;
-		height:500px;
-	}
+	
 	
 	#widget01 {
-		position: absolute;
+		
+		position: relative;
 		margin-left: 50px;
 		margin-top: 10px;
 		
+
 	}
 	
 	#widget01 span{
+		/* 
 		margin-left: 50px;
-		
+		 */
 	}
 	
 	.selectedOne {
@@ -87,7 +101,8 @@
 		
 		buildTable();
 		
-		$("#" + selectedBoxId ).addClass("selectedOne");
+		//$("#" + selectedBoxId ).addClass("selectedOne");
+		
 	});
 	
 	
@@ -105,6 +120,14 @@
 		
 	}
 	
+	function setThisColor( obj ){
+		
+		$("#" + $(obj).attr("id") ).css(
+			"background-color",
+			$("#widget01_color").css("background-color")
+		);
+	}
+	
 	function buildTable(){
 		var boxWidth = parseInt( $("#boxWidth").val() );
 		var boxHeight = parseInt($("#boxHeight").val() );
@@ -117,7 +140,7 @@
 		for( var i = 0 ; i < countY ; i++ ){
 			html += "<tr>";
 			for( var j = 0 ; j < countX ; j++ ){
-				html += "<td style='width:"+ boxWidth +";height:"+ boxHeight +";' id='item_"+i+"_"+j+"' onclick='javascript:setThisOne(this);' >";
+				html += "<td style='width:"+ boxWidth +";height:"+ boxHeight +";' id='item_"+i+"_"+j+"' onclick='javascript:setThisColor(this);' >";
 				
 				html += "<span>" + i +":" + j + "</span>"
 				
@@ -155,7 +178,7 @@
 		//alert( hex_code );
 		$("#widget01 #hex_code").text( hex_code );
 		
-		$("#" + selectedBoxId ).css("background-color", rgb);
+		//$("#" + selectedBoxId ).css("background-color", rgb);
 		
 		
 	}
@@ -179,46 +202,47 @@
 <body>
 
 	
-	
-	<form id="frm" action="/JSP01/drawColorMatrix" method="GET">
-		<input type="hidden" value="drawImage" name = "cmd"/>
-		
-		<div id="tableArea"></div>
-		
-		<div id="input_control">
-			<span>boxWidth : </span> <input type="text" id="boxWidth"  name = "boxWidth"  value="25" maxlength="3"/><br/>
-			<span>boxHeight : </span><input type="text" id="boxHeight" name = "boxHeight" value="25" maxlength="3"/><br/>
-			<span>countX : </span>   <input type="text" id="countX"    name = "countX"    value="10" maxlength="3"/><br/>
-			<span>countY : </span>   <input type="text" id="countY"    name = "countY"    value="10" maxlength="3"/><br/>
-			
-			
-			<input type="button" onclick="javascript:buildTable();" value="buildTable"/>
-			<input type="button" onclick="javascript:getImage();" value="getImage"/>
+	<div id="body01">
+		<form id="frm" action="/JSP01/drawColorMatrix" method="GET">
+		<div class="area01">
+			<div id="tableArea"></div>
 		</div>
-	</form>
-	
-	<div id="show_box">
-	
-		<img id = "img01" src="http://localhost:8081/JSP01/drawColorMatrix?cmd=drawImage&boxWidth=10&boxHeight=10&countX=10&countY=10"/>
-	
+		
+		<div class="area01">
+			<div id="input_control">
+				<span>boxWidth : </span> <input type="text" id="boxWidth"  name = "boxWidth"  value="25" maxlength="3"/><br/>
+				<span>boxHeight : </span><input type="text" id="boxHeight" name = "boxHeight" value="25" maxlength="3"/><br/>
+				<span>countX : </span>   <input type="text" id="countX"    name = "countX"    value="10" maxlength="3"/><br/>
+				<span>countY : </span>   <input type="text" id="countY"    name = "countY"    value="10" maxlength="3"/><br/>
+				
+				<input type="button" onclick="javascript:buildTable();" value="buildTable"/>
+				<input type="button" onclick="javascript:getImage();" value="getImage"/>
+			</div>
+		</div>
+		</form>
+		
+		<div class="area01">
+			
+			<div id="show_box">
+			
+				<img id = "img01" src="http://localhost:8081/JSP01/drawColorMatrix?cmd=drawImage&boxWidth=10&boxHeight=10&countX=10&countY=10"/>
+			
+			</div>
+			
+		</div>
+		
+		<div class="area01">
+			
+			<div id="widget01">
+				<div id="colorSelector2"><div id="widget01_color" style="background-color: #00ff00"></div></div>
+					<div id="colorpickerHolder2">
+				</div>
+				<span>hex code : </span><span id="hex_code">#00ff00</span>
+				<input type="button" onclick="javascript:getHexCode();" value="getHexCode"/>
+			</div>
+			
+		</div>
 	</div>
-	
-	
-	
-
-
-
-
-	<div id="widget01">
-		<div id="colorSelector2"><div id="widget01_color" style="background-color: #00ff00"></div></div>
-			<div id="colorpickerHolder2">
-		</div>
-		<span>hex code : </span><span id="hex_code">#00ff00</span>
-		<input type="button" onclick="javascript:getHexCode();" value="getHexCode"/>
-	</div> 
-
-
-
 
 
 </body>
