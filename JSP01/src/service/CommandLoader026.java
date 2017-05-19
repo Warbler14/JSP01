@@ -72,7 +72,7 @@ public class CommandLoader026 implements CommandLoader{
 	public void drawImage(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		
 		ArrayList<String> messagelist = new ArrayList<String>();
-		HashMap<String, Integer> dataMap = loadParam( request, messagelist );
+		HashMap<String, String> dataMap = loadParam( request, messagelist );
 		if( dataMap != null && !dataMap.isEmpty() ){
 			
 			try{
@@ -95,9 +95,9 @@ public class CommandLoader026 implements CommandLoader{
 		}
 	}
 	
-	private HashMap<String, Integer> loadParam( HttpServletRequest request, ArrayList<String> messagelist ){
+	private HashMap<String, String> loadParam( HttpServletRequest request, ArrayList<String> messagelist ){
 		//---------------------------------------------------------------------------------
-		HashMap<String, Integer> dataMap = new HashMap<String, Integer>();
+		HashMap<String, String> dataMap = new HashMap<String, String>();
 		//---------------------------------------------------------------------------------
 		
 		try{
@@ -105,7 +105,7 @@ public class CommandLoader026 implements CommandLoader{
 				String param = request.getParameter( parameters[y] );
 				logger.debug("param : " + parameters[y] + ", value : " + param);
 				
-				dataMap.put( parameters[y] , Integer.valueOf( param ) );
+				dataMap.put( parameters[y] ,  param  );
 				
 				
 				logger.debug( "[" + y + "] : " + dataMap.get(parameters[y]) );
@@ -127,14 +127,25 @@ public class CommandLoader026 implements CommandLoader{
 	}
 	
 	private static void paintProcessJPG( HttpServletRequest request, HttpServletResponse response
-			, int imageType, Paint [] baseColors, HashMap<String, Integer> dataMap ) throws Exception{
+			, int imageType, Paint [] baseColors, HashMap<String, String> dataMap ) throws Exception{
 		
 		
 		int boxWidth = Integer.valueOf( dataMap.get( "boxWidth" ) );
 		int boxHeight = Integer.valueOf( dataMap.get( "boxHeight" ) );
 		int countX = Integer.valueOf( dataMap.get( "countX" ) );
 		int countY = Integer.valueOf( dataMap.get( "countY" ) );
+		String [] dataArr = (dataMap.get( "data" )).split("_");
+		boolean isNotEmptyDataArr = false;
 		
+		if( dataArr != null && dataArr.length > 1 ){
+			logger.debug( "dataArr length : " + dataArr.length );
+			
+			isNotEmptyDataArr = true;
+			
+			for(int i = 0, ii=dataArr.length ; i<ii ; i++ ){
+				logger.debug("[" + i + "][" + dataArr[i] + "]");
+			}
+		}
 		
 		//----------------------------------------------
 		response.setContentType("image/jpeg");
@@ -147,15 +158,31 @@ public class CommandLoader026 implements CommandLoader{
 		
 		int pointer = 0;
 		for( int i = 0 ; i<countY ; i++ ){
-			for( int j = 0 ; j<countX ; j++, pointer++ ){
+			for( int j = 0 ; j<countX ; j++ ){
 				
-				g.setPaint(baseColors[ pointer%2 ]);
+				
+				if( isNotEmptyDataArr ){
+					if( pointer < dataArr.length ){
+						
+						
+						logger.debug( Color.decode( getHex( dataArr[pointer] ) ));
+						g.setPaint( Color.decode( getHex( dataArr[pointer] ) ) );
+						
+						
+					}
+				}else{
+					g.setPaint(baseColors[ pointer%2 ]);
+					
+				}
+				
 				g.fillRect( j * boxWidth, i * boxHeight , boxWidth, boxHeight);
 				
+				pointer++;
 			}//end for
 			
-			pointer++;
-			
+			if( !isNotEmptyDataArr ){
+				pointer++;
+			}
 		}//end for
 		
 		
@@ -168,5 +195,7 @@ public class CommandLoader026 implements CommandLoader{
 		
 	}
 	
-	
+	private static String getHex( String code ){
+		return "#" + code;
+	}
 }

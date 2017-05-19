@@ -122,10 +122,35 @@
 	
 	function setThisColor( obj ){
 		
-		$("#" + $(obj).attr("id") ).css(
-			"background-color",
-			$("#widget01_color").css("background-color")
-		);
+		getHexCode();
+		
+		var rgb = $("#widget01_color").css("background-color");
+		var id = $(obj).attr("id");
+		$("#" + id ).css( "background-color", rgb );
+		
+		console.log( "rgb : " + rgb );
+		console.log( "id : " + id );
+		
+		var dataArr = id.split("_");
+		
+		if( dataArr.length == 3 ){
+			var hex = rgb2hex(rgb);
+			
+			//console.log( hex );
+			
+			$("#data_" + dataArr[1] + "_" + dataArr[2] ).val( hex );
+			
+			console.log( $("#data_" + dataArr[1] + "_" + dataArr[2] ).val() );
+			
+		}else{
+			
+			console.log("========debug==========");
+			for( var i = 0 , ii = dataArr.length ; i<ii ; i++ ){
+				console.log( dataArr[i] );
+			}
+			
+		}
+		
 	}
 	
 	function buildTable(){
@@ -141,6 +166,8 @@
 			html += "<tr>";
 			for( var j = 0 ; j < countX ; j++ ){
 				html += "<td style='width:"+ boxWidth +";height:"+ boxHeight +";' id='item_"+i+"_"+j+"' onclick='javascript:setThisColor(this);' >";
+				
+				html += "<input type='hidden' id = 'data_"+i+"_"+j+"' name='data_"+i+"_"+j+"' value='#ffffff' />"
 				
 				html += "<span>" + i +":" + j + "</span>"
 				
@@ -161,11 +188,16 @@
 		var countX = parseInt($("#countX").val() );
 		var countY =parseInt( $("#countY").val() );
 		
+		var data = loadData();
 		
+		data = data.replace(/#/gi, "_");
+		data = data.replace("_", "");
 		
-		var img = "http://localhost:8081/JSP01/drawColorMatrix?cmd=drawImage"
+		var img = "/JSP01/drawColorMatrix?cmd=drawImage"
 				+ "&boxWidth="+ boxWidth +"&boxHeight=" + boxHeight
-				+ "&countX="+ countX +"&countY=" + countY ;
+				+ "&countX="+ countX +"&countY=" + countY 
+				+ "&data="+ data
+				;
 		
 		alert(img);
 		
@@ -195,6 +227,22 @@
 	     }
 	}
 
+	function loadData(){
+		var countX = parseInt($("#countX").val() );
+		var countY =parseInt( $("#countY").val() );
+		var data = "";
+		
+		for( var i = 0 ; i < countY ; i++ ){
+			for( var j = 0 ; j < countX ; j++ ){
+				
+				data += $("#data_"+i+"_"+j).val();
+				
+			}
+		}
+		
+		return data;
+	}
+	
 
 	
 </script>
@@ -203,7 +251,8 @@
 
 	
 	<div id="body01">
-		<form id="frm" action="/JSP01/drawColorMatrix" method="GET">
+		<form id="frm" action="/JSP01/drawColorMatrix" method="POST">
+		
 		<div class="area01">
 			<div id="tableArea"></div>
 		</div>
@@ -225,7 +274,7 @@
 			
 			<div id="show_box">
 			
-				<img id = "img01" src="http://localhost:8081/JSP01/drawColorMatrix?cmd=drawImage&boxWidth=10&boxHeight=10&countX=10&countY=10"/>
+				<img id = "img01" src="/JSP01/drawColorMatrix?cmd=drawImage&boxWidth=10&boxHeight=10&countX=10&countY=10&data="/>
 			
 			</div>
 			
