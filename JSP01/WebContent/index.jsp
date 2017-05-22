@@ -43,6 +43,7 @@
 				,"/drawCircleBox?cmd=inputPage"
 						
 				,"/drawColorMatrix?cmd=inputPage"
+				,"/drawThrowBox?cmd=inputPage"
 				];
 
 
