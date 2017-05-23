@@ -1,6 +1,7 @@
 <%@page import="java.util.Date"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -53,13 +54,21 @@
 	});
 
 	function printPageArr(){
-		var dot = ".";
+		var contextPath = "<c:out value='${pageContext.request.contextPath}'/>";
+		var dot = "";
 		var html = "";
+		
+		if( contextPath != null && contextPath != '' && contextPath != undefined ){
+			dot = ".";
+		}
 		
 		html += "<ul>";
 		for( var i = 0, ii = links.length ; i<ii ; i++ ){
+			
+			var url = "<c:url value='" + links[i] + "'/>";
+			
 			html += "<li>";
-			html += "<a href='" + dot +  links[i] + "' target='_blank'>";
+			html += "<a href='" + dot +  url + "' target='_blank'>";
 			html += links[i];
 			html += "</a>";
 			html += "</li>";
@@ -82,7 +91,6 @@
 	
 
 	<h1>Im working (<%= date.toString() %>) </h1>
-	
 	
 	<div id="pageArr">
 	
