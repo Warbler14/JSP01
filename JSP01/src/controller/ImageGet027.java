@@ -27,7 +27,7 @@ private static final long serialVersionUID = 1L;
 	public final static String COMPUTE01 = "drawImage";
 	public final static String MOVE_PAGE [][] = {{"inputPage", "/WEB-INF/view/027/inputPage.jsp"}
 												,{COMPUTE01, COMPUTE01}};
-	public final static String [] PARAMETERS = {"x_pos", "y_pos"};
+	public final static String [] PARAMETERS = {"width", "height", "posX", "posY"};
 	
 	static Logger logger = Logger.getLogger(ImageGet007.class);
 

@@ -103,10 +103,10 @@ public class CommandLoader027 implements CommandLoader{
 				String param = request.getParameter( parameters[y] );
 				logger.debug("param : " + parameters[y] + ", value : " + param);
 				
-				dataMap.put( parameters[y] , Integer.valueOf( param ) );
+				Double paramData = Double.valueOf(param) ;
 				
-				
-				
+				dataMap.put( parameters[y] , Integer.valueOf(paramData.intValue()) );
+								
 				logger.debug( "[" + y + "] : " + dataMap.get(parameters[y]) );
 				
 			}//end for
@@ -129,7 +129,7 @@ public class CommandLoader027 implements CommandLoader{
 			, int imageType, Paint baseColor, HashMap<String, Integer> dataMap ) throws Exception{
 		
 		final int dotSize = 50;
-		final int module [] = {500,500};
+		final int module [] = { dataMap.get("width"), dataMap.get("height") };
 		
 		//----------------------------------------------
 		response.setContentType("image/jpeg");
@@ -140,7 +140,7 @@ public class CommandLoader027 implements CommandLoader{
 		g.setPaint(baseColor);
 		
 		
-		g.fillRect( dataMap.get( "x_pos" ), dataMap.get( "y_pos" ) , dotSize, dotSize);
+		g.drawRect( dataMap.get( "posX" ), dataMap.get( "posY" ) , dotSize, dotSize);
 		
 		
 		//----------------------------------------------
