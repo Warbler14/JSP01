@@ -11,7 +11,7 @@
 <script type="text/javascript">
 
 	var links = ["/HelloWorld"
-				
+				/* 
 				,"/ImageGet?fileName=overcome.jpg"
 				,"/ImageGetSize?width=100&height=100"
 				,"/paintImage?number=5"
@@ -43,24 +43,37 @@
 				,"/drawCircleBox?cmd=inputPage"
 						
 				,"/drawColorMatrix?cmd=inputPage"
-				,"/drawThrowBox?cmd=inputPage"
+				,"/drawThrowBox?cmd=inputPage" */
 				];
 
-
+	var linkArr = new Array();
+	
 	$(document).ready(function(){
 		
-		printPageArr();
+		loadPageList();
+		
 	});
-
+	
 	function printPageArr(){
+		
 		var dot = ".";
 		var html = "";
 		
+		var list;
+		
+		if( linkArr.length > 0 ){
+			list = linkArr;
+			alert("a");
+		}else{
+			list = links;
+			alert("b");
+		}
+		
 		html += "<ul>";
-		for( var i = 0, ii = links.length ; i<ii ; i++ ){
+		for( var i = 0, ii = list.length ; i<ii ; i++ ){
 			html += "<li>";
-			html += "<a href='" + dot +  links[i] + "' target='_blank'>";
-			html += links[i];
+			html += "<a href='" + dot +  list[i] + "' target='_blank'>";
+			html += list[i];
 			html += "</a>";
 			html += "</li>";
 		}
@@ -70,10 +83,43 @@
 		$("#pageArr").html(html);
 	}
 
+	function loadPageList(){
+		var datas = $("frm").serialize();
+		
+		$.ajax({
+			url:"./getPage",
+			data: datas,  //파라미터 보내기
+			type:"GET", //post방식으로 요청하기
+			dataType:"xml" ,//응답문서타입 설정하기
+			
+			success:function(data){
+				var pageList = $(data).find("pageList");
+				$("#pageSize").text( pageList.length );
+				
+				for(var i = 0, ii = pageList.length ; i<ii ; i++ ){
+					var strTmp = $(pageList[i]).text();
+					
+					console.log( strTmp );
+					linkArr.push( strTmp );
+				}
+				
+				printPageArr();
+				
+			}//end success
+		});
+		
+	}
 
 </script>
 </head>
 <body>
+
+	<form id="frm" action="">
+		<input type="hidden" id="pageNum" name="pageNum" value="0"/>
+	</form>
+	
+	<span id="pageSize">0</span>
+	
 	<%
 		Date date = new Date(System.currentTimeMillis());
 		
