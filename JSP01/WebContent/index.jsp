@@ -12,7 +12,7 @@
 <script type="text/javascript">
 
 	var links = ["/HelloWorld"
-				
+				/* 
 				,"/ImageGet?fileName=overcome.jpg"
 				,"/ImageGetSize?width=100&height=100"
 				,"/paintImage?number=5"
@@ -127,6 +127,7 @@
 	
 
 	<h1>Im working (<%= date.toString() %>) </h1>
+	
 	
 	<div id="pageArr">
 	
