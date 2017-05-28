@@ -54,6 +54,7 @@ public class PageController extends HttpServlet {
 				
 		,"/drawColorMatrix?cmd=inputPage"
 		,"/drawThrowBox?cmd=inputPage"
+		,"/drawBounceBox?cmd=inputPage"
 	};
 	
 	static Logger logger = Logger.getLogger(HelloWorld.class);
