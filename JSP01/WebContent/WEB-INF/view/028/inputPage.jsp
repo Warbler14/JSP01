@@ -41,55 +41,75 @@
 			var height = 500;
 			
 			var canvas = document.getElementById("canvas1");   
-			var context = canvas.getContext("2d"); 
+			var context = canvas.getContext("2d");
+			
+			var gradient = context.createLinearGradient(0, 0, width, 0);
+			gradient.addColorStop("0",    "magenta");
+			gradient.addColorStop("0.25", "blue");
+			gradient.addColorStop("0.5",  "green");
+			gradient.addColorStop("0.75", "orange");
+			gradient.addColorStop("1.0",  "red");
+
+			// Fill with gradient
+			/* context.strokeStyle = gradient;
+			context.lineWidth = 3;
+			context.strokeRect(20, 20, 150, 100); */
 			
 			var g = 0.2;                // 중력 가속도  
 			var vx = 0, vy = 0;         // 속도  
-			var posX = 50, posY = 400;  // 위치  
+			var posX = 50, posY = 480;  // 위치  
+			var radius = 30;
 			     
-			vx = 1;
-			vy = 12;                   // 초기 속도값 지정   
+			var vx = 1;
+			var vy = 12;                   // 초기 속도값 지정   
+			
+			var arcRad = (2*Math.PI)*2 + radius;
 			
 			function throwObject(){
-				var isFall = true;
+				var isFall = false;
 				
-				var runEvent = setInterval(function(){  
+				
+				var runEvent = setInterval(function(){
+					context.strokeStyle="#FF0000";
+					context.strokeStyle = gradient;
+					context.lineWidth = 0.5;
 					//context.clearRect(0, 0, canvas.width, canvas.height);      
 					context.strokeRect(0, 0, canvas.width, canvas.height);     
 					
-					if(isFall){
-						
+					if(!isFall){
 						vy = vy - g;        // 중력 가속도 계산       
 						posX = posX + vx;      
 						posY = posY - vy;
-					
+						
 					}else{
 						vy = vy + g;        // 중력 가속도 계산       
-						posX = posX + vx;      
+						posX = posX + vx;
 						posY = posY + vy;
 						
 					}
 					
-					if( isFall == true && posY > 400 ){
+					if( isFall == true && posY > (height-arcRad) ){
 						isFall = false;
 						//clearInterval(runEvent);
 					}
 					
-					
-					
-					if( isFall == false && vy <= 0 ){
+					if( isFall == false && vy <= 0.0 ){
 						isFall = true;
+					}
+					
+					if( posX > width || posX < 0 ){
+						vx = vx * (-1);
 					}
 					
 					
 					context.beginPath();       
-					context.arc(posX, posY, 30, 0, 2*Math.PI, true);       
+					context.arc(posX, posY, radius, 0, 2*Math.PI, true);       
 					context.stroke();      
 					context.closePath();
 					
 					setImage( "img01", width, height, posX, posY );
 					
-					$("#status").text( "isFall : " + isFall + ", vy : " + vy)
+					$("#status").text( "isFall : " + isFall + ", vy : " + vy + ", posY : " + posY);
 				}, 1000/60);
 				
 			}
