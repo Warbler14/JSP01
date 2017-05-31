@@ -24,10 +24,29 @@
 
 
 	<body>
+		<span>posX : </span><input type="number" value="30" id="posX"/>
+		
+		<span>posY : </span><input type="number" value="480" id="posY"/>
+		
+		<span>radius : </span><input type="number" value="30" id="radius"/>
+		
+		<span>vy0 : </span><input type="number" value="12" id="vy0"/>
+		
+		<!-- 
+		<span>g0 : </span><input type="number" value="0.2" id="g0"/>
+		 -->
+		<input type="button" value="run" onclick="javascript:throwObject();"/>
+		
+		<br/>
+		
 		<span>status : </span><span id="status"></span>
-		1
+		
+		<br/>
+		
 		<canvas id="canvas1" width="1000" height="500"></canvas>
-		2
+		
+		<br/>
+		
 		
 		<div id="show_box">
 			<img id = "img01" src="http://localhost:8081/JSP01/drawBounceBox?cmd=drawImage&width=1000&height=500&posX=50&posY=300"/>
@@ -39,10 +58,18 @@
 
 			var width = 1000;
 			var height = 500;
+			var vx0 = 1;
+			var vy0 = 12;
+			var g0 = 0.2;	// 중력 가속도
 			
 			var canvas = document.getElementById("canvas1");   
 			var context = canvas.getContext("2d");
 			
+			// Fill with gradient
+			/* context.strokeStyle = gradient;
+			context.lineWidth = 3;
+			context.strokeRect(20, 20, 150, 100); */
+
 			var gradient = context.createLinearGradient(0, 0, width, 0);
 			gradient.addColorStop("0",    "magenta");
 			gradient.addColorStop("0.25", "blue");
@@ -50,31 +77,59 @@
 			gradient.addColorStop("0.75", "orange");
 			gradient.addColorStop("1.0",  "red");
 
-			// Fill with gradient
-			/* context.strokeStyle = gradient;
-			context.lineWidth = 3;
-			context.strokeRect(20, 20, 150, 100); */
 			
-			var g = 0.2;                // 중력 가속도  
-			var vx = 0, vy = 0;         // 속도  
-			var posX = 50, posY = 480;  // 위치  
+			var g = g0;                 	// 중력 가속도
+			var posX = 30;					// 위치  
+			var posY =  480;  
 			var radius = 30;
-			     
-			var vx = 1;
-			var vy = 12;                   // 초기 속도값 지정   
+			
+			var vx = vx0;					// 초기 속도값 지정
+			var vy = vy0;   
 			
 			var arcRad = (2*Math.PI)*2 + radius;
+			
+			function drawCanvas(){
+				context.strokeStyle = gradient;
+				context.lineWidth = 0.5;   
+				context.strokeRect(0, 0, canvas.width, canvas.height);				
+			}
 			
 			function throwObject(){
 				var isFall = false;
 				
+				posX =   parseInt( $("#posX").val() );  
+				posY =   parseInt( $("#posY").val() );  
+				radius = parseInt( $("#radius").val() );
+				vy =     parseInt( $("#vy0").val() );
+				
+				if( posX <= 0 ){
+					alert( "posX <= 0" );
+					return;
+				}
+				
+				if( posY <= 0 ){
+					alert( "posY <= 0" );
+					return;
+				}
+				
+				if( radius <= 0 ){
+					alert( "radius <= 0" );
+					return;
+				}
+				
+				if( vy <= 0 ){
+					alert( "vy <= 0" );
+					return;
+				}
 				
 				var runEvent = setInterval(function(){
-					context.strokeStyle="#FF0000";
+					/* 
 					context.strokeStyle = gradient;
 					context.lineWidth = 0.5;
 					//context.clearRect(0, 0, canvas.width, canvas.height);      
 					context.strokeRect(0, 0, canvas.width, canvas.height);     
+					 */
+					drawCanvas();
 					
 					if(!isFall){
 						vy = vy - g;        // 중력 가속도 계산       
@@ -88,19 +143,28 @@
 						
 					}
 					
-					if( isFall == true && posY > (height-arcRad) ){
+					if( isFall == true && posY > (height - arcRad) ){
 						isFall = false;
 						//clearInterval(runEvent);
+						posY = height - radius;
+						
+						vy = parseInt( $("#vy0").val() ) - g;
+						
 					}
 					
 					if( isFall == false && vy <= 0.0 ){
 						isFall = true;
 					}
 					
-					if( posX > width || posX < 0 ){
+					if( posX > (width - radius) || posX < radius){
 						vx = vx * (-1);
+						
+						if( posX > width ){
+							posX = width - radius;
+						}else if(posX < radius){
+							posX = radius;
+						}
 					}
-					
 					
 					context.beginPath();       
 					context.arc(posX, posY, radius, 0, 2*Math.PI, true);       
@@ -110,6 +174,7 @@
 					setImage( "img01", width, height, posX, posY );
 					
 					$("#status").text( "isFall : " + isFall + ", vy : " + vy + ", posY : " + posY);
+					
 				}, 1000/60);
 				
 			}
@@ -128,7 +193,7 @@
 			
 			$(document).ready(function(){
 
-				throwObject();
+				drawCanvas();
 				
 			});
 			
