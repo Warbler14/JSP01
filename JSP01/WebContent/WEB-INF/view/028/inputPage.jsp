@@ -84,7 +84,9 @@
 			var radius = 30;
 			
 			var vx = vx0;					// 초기 속도값 지정
-			var vy = vy0;   
+			var vy = vy0;
+			
+			var vy1 = 0;
 			
 			var arcRad = (2*Math.PI)*2 + radius;
 			
@@ -143,19 +145,32 @@
 						
 					}
 					
+					//착지 판정
 					if( isFall == true && posY > (height - arcRad) ){
 						isFall = false;
 						//clearInterval(runEvent);
 						posY = height - radius;
 						
-						vy = parseInt( $("#vy0").val() ) - g;
+						//vy = parseInt( $("#vy0").val() ) - g;
+						
+						if(vy1 > 0){
+							vy = vy1;
+						}else{
+							var q = (vy + g) % ( ((posY - height) / (vy + g + height)) );
+							
+							vy1 = vy + g + q;
+							vy = vy1;
+							
+						}
 						
 					}
 					
+					//상승 최고점 판정
 					if( isFall == false && vy <= 0.0 ){
 						isFall = true;
 					}
 					
+					//좌우 벽면 바운스 판정
 					if( posX > (width - radius) || posX < radius){
 						vx = vx * (-1);
 						
