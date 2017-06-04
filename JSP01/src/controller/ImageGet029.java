@@ -26,6 +26,7 @@ private static final long serialVersionUID = 1L;
 	
 	public final static String COMPUTE01 = "drawImage";
 	public final static String MOVE_PAGE [][] = {{"inputPage", "/WEB-INF/view/029/inputPage.jsp"}
+												,{"inputPage2", "/WEB-INF/view/029/inputPage2.jsp"}
 												,{COMPUTE01, COMPUTE01}};
 	public final static String [] PARAMETERS = {"width", "height", "posX", "posY"};
 	

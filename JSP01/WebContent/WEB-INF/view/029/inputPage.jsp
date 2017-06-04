@@ -19,6 +19,8 @@
 		width: 500px;
 		height:500px;
 	}
+	
+	
 </style>
 
 
@@ -63,7 +65,7 @@
 			var width = 1000;
 			var height = 500;
 			var vx0 = 1;
-			var vy0 = 12;
+			var vy0 = 1;
 			var g0 = 0.2;	// 중력 가속도
 			
 			var canvas = document.getElementById("canvas1");   
@@ -184,9 +186,9 @@
 						
 						
 						//posY = height - radius;
-						
-						//vy = parseInt( $("#vy0").val() ) - g;
 						/* 
+						vy = parseInt( $("#vy0").val() ) - g;
+						
 						if(vy1 > 0){
 							vy = vy1;
 						}else{
@@ -260,7 +262,7 @@
 		
 		
 		
-	
+		
 		
 		
 	</body>
