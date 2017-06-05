@@ -31,12 +31,14 @@
 			var loopTimer = false;
 			var lastTime = false;
 	
+			//requestAnimationFrame : 스크립트 기반 애니메이션용 타이밍 컨트롤, 브라우저가 화면을 업데이트 해야하는 경우에만 콜백함수를 호출, 브라우저별 처리
+			// 참조 : https://msdn.microsoft.com/ko-kr/library/hh920765(v=vs.85).aspx
 			window.requestAnimFrame = (function(){
-			    return  window.requestAnimationFrame       || 
-			        window.webkitRequestAnimationFrame || 
-			        window.mozRequestAnimationFrame    || 
-			        window.oRequestAnimationFrame      || 
-			        window.msRequestAnimationFrame     || 
+			    return  window.requestAnimationFrame       ||
+			        	window.webkitRequestAnimationFrame ||
+			        	window.mozRequestAnimationFrame    ||
+			        	window.oRequestAnimationFrame      ||
+			        	window.msRequestAnimationFrame     ||
 			        function( callback ){
 			            window.setTimeout(callback, 1000 / 60);
 			        };
@@ -55,6 +57,7 @@
 			    lastTime = new Date();
 			    requestAnimFrame(loop);
 			}
+			
 			var loop = function(time) {
 			    var deltaT = (time - lastTime.getTime()) / 1000;
 	
