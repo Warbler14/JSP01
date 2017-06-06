@@ -21,8 +21,12 @@
 		
 		<canvas id="canvas" height="600" width="400"></canvas>
 		
+		<span>hour ang : </span><span id="hour"></span><br/>
+		<span>minute ang : </span><span id="minute"></span><br/>
+		<span>second ang : </span><span id="second"></span><br/>
 		
-		
+		<script type="text/javascript" src="./resources/js/jquery-2.1.1.min.js"></script>
+		<script type="text/javascript" src="./resources/js/jquery-ui-1.10.4.custom.min.js"></script>
 		<script type="text/javascript">
 			var height = 600; var width = 400;
 			var canvas = ctx = false;
@@ -102,7 +106,7 @@
 			    // Draw bar for Pendulum
 			    ctx.strokeStyle = 'black';
 			    ctx.beginPath();
-			    ctx.moveTo(width/2, 50);
+			    ctx.moveTo(width/2, 50);	//context.moveTo(x,y);
 			    ctx.lineTo(px, py);
 			    ctx.stroke();
 			    ctx.closePath();
@@ -121,8 +125,8 @@
 			    ctx.closePath();
 			    
 			    // Draw hour hand
-			    
 			    var ang = (time.getHours() % 12) + (time.getMinutes()/60);
+			    $("#hour").html( ang );
 			    ang *= 30 * Math.PI/180;
 			    ang -= Math.PI/2;
 			    ctx.fillStyle = '#666';
@@ -142,6 +146,7 @@
 			    
 			    // Draw minute hand
 			    var ang = time.getMinutes() + (time.getSeconds()/60);
+			    $("#minute").text( ang );
 			    ang *= 6*Math.PI/180;
 			    ang -= Math.PI/2;
 			    ctx.fillStyle = '#999';
@@ -162,6 +167,7 @@
 			    // Draw second hand
 			    var ms = Math.round(time.getMilliseconds() / 250) / 4;
 			    var ang = time.getSeconds() + ms;
+			    $("#second").text( ang );
 			    ang *= 6*Math.PI/180;
 			    ang -= Math.PI/2;
 			    ctx.strokeStyle = '#CCC';
@@ -175,7 +181,7 @@
 			    ctx.closePath();
 	
 			    lastTime = new Date();
-			    requestAnimFrame(loop);
+			    requestAnimFrame(loop);	//callback -> loop
 			    
 			}
 		    
