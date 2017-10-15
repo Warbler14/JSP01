@@ -57,6 +57,8 @@ public class PageController extends HttpServlet {
 		,"/drawBounceBox?cmd=inputPage"
 		,"/drawPendulum?cmd=inputPage"
 		,"/drawPendulum?cmd=inputPage2"
+		
+		,"/drawTextList?cmd=inputPage"
 	};
 	
 	static Logger logger = Logger.getLogger(HelloWorld.class);

@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 
-import service.CommandLoader018;
+import service.CommandLoader030;
 import service_interface.Page;
 
 /**
@@ -20,27 +20,27 @@ import service_interface.Page;
 
 
 
-@WebServlet("/drawText")
-public class ImageGet018 extends HttpServlet {
+@WebServlet("/drawTextList")
+public class ImageGet030 extends HttpServlet {
 private static final long serialVersionUID = 1L;
 	
 	public final static String COMPUTE01 = "drawImage";
-	public final static String MOVE_PAGE [][] = {{"inputPage", "/WEB-INF/view/018/inputPage.jsp"}
+	public final static String MOVE_PAGE [][] = {{"inputPage", "/WEB-INF/view/030/inputPage.jsp"}
 												,{COMPUTE01, COMPUTE01}};
 	public final static String [] PARAMETERS = {"message", "letterWidth", "letterHight"};
 	
-	static Logger logger = Logger.getLogger(ImageGet018.class);
+	static Logger logger = Logger.getLogger(ImageGet030.class);
 
-	CommandLoader018 service;
+	CommandLoader030 service;
 	
-	public ImageGet018() {
+	public ImageGet030() {
 		super();
 	}
 	
 	@Override
 	public void init() throws ServletException{
 		logger.info("init");
-		service = new CommandLoader018( MOVE_PAGE, PARAMETERS);
+		service = new CommandLoader030( MOVE_PAGE, PARAMETERS);
 	
 	}
 	
